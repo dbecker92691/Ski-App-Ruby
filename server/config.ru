@@ -4,6 +4,7 @@ require 'sinatra/base'
 # controller
 require './controllers/ApplicationController';
 require './controllers/UserAPIController'
+require './controllers/ResortPostController'
 
 
 
@@ -20,4 +21,8 @@ map('/') {
 
 map('/api/users') {
 	run UserAPIController
+}
+
+map('/api/resort-posts') {
+	run ResortPostController
 }

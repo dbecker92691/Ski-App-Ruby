@@ -13,7 +13,8 @@ CREATE TABLE users(
 CREATE TABLE resort_posts(
 	id SERIAL PRIMARY KEY,
 	resort VARCHAR(100),
-	post VARCHAR(100),
+	body VARCHAR(100),
+	created_at TIMESTAMP DEFAULT NOW(),
 	user_id INTEGER REFERENCES users(id)
 );
 
