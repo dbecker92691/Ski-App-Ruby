@@ -27,7 +27,7 @@ class ResortPostController < ApplicationController
 
 
 
-	# create
+	# create post
 
 	post '/' do
 		payload_body = request.body.read
@@ -49,4 +49,49 @@ class ResortPostController < ApplicationController
 	end
 
 
+	# edit post
+	put '/:id' do
+		payload_body = request.body.read
+		payload = JSON.parse(payload_body).symbolize_keys
+
+		resort_post = Resort_Post.find params[:id]
+
+		resort_post.resort = payload[:resort]
+		resort_post.body = payload[:body]
+		resort_post.save
+		{
+			status: 200,
+			message: "Post has been updated",
+			resort_post: resort_post
+		}.to_json
+	end
+
+	#delete post
+	delete '/:id' do
+		resort_post = Resort_Post.find params[:id]
+
+		resort_post.destroy
+		{
+			status: 200,
+			message: "Deleted Post"
+		}.to_json
+	end
+
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
