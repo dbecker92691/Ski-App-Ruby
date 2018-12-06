@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LogInRegister from './LogInRegister';
+import SkiPostContainer from './SkiPostContainer'
+
 
 class App extends Component {
+    constructor(){
+    super();
+    this.state = {
+        loggedIn: false,
+        username: ''
+      }
+  }
+
+    LogIn = (username) => {
+    this.setState({
+      loggedIn: true,
+      username: username
+    })
+  }
+  Logout = (username) => {
+    this.setState({
+      loggedIn: false,
+      username: username
+    });
+  }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+       {this.state.loggedIn ? 
+        <SkiPostContainer logout={this.Logout}/> : 
+        <LogInRegister LogIn={this.LogIn}/>}
       </div>
     );
   }

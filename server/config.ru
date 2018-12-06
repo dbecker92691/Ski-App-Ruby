@@ -15,7 +15,7 @@ require './models/ResortPostModel'
 
 
 # map routes
-map('/') {
+map('/api') {
 	run ApplicationController
 }
 

@@ -19,8 +19,6 @@ class UserAPIController < ApplicationController
 				status: 200,
 				message: "#{user.username} has logged in"
 			}.to_json
-
-
 		else
 			{
 				status: 401,
@@ -31,6 +29,7 @@ class UserAPIController < ApplicationController
 
 		
 	end
+	
 
 
 	# register
@@ -70,9 +69,10 @@ class UserAPIController < ApplicationController
 
 	get '/logout' do
 		username = session[:username]
-
+		p session
 		session.destroy
 		{
+			username: username,
 			status: 200,
 			message: "Logged out user #{username}"
 		}.to_json

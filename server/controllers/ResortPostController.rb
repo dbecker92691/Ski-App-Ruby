@@ -4,10 +4,11 @@ class ResortPostController < ApplicationController
 	# index all posts
 
 	get '/' do
-		Resort_Post.all.order(:created_at)
+		posts = Resort_Post.all.order(:created_at)
 		{
 			status: 200,
-			message: "You have hit all posts"
+			message: "You have hit all posts",
+			posts: posts
 		}.to_json
 
 	end
@@ -65,6 +66,7 @@ class ResortPostController < ApplicationController
 			resort_post: resort_post
 		}.to_json
 	end
+	
 
 	#delete post
 	delete '/:id' do

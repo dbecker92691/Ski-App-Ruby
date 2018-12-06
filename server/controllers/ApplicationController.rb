@@ -32,10 +32,11 @@ class ApplicationController < Sinatra::Base
 	options '*' do
 		response.headers['Allow'] = 'HEAD, GET, POST, PATCH, DELETE, OPTIONS'
 		response.headers['Access-Control-Allow-Origin'] = ENV['REACT_APP_ADDRESS']
-		resopone.headers['Access-Control-Allow-Credentials'] = 'true'
+		response.headers['Access-Control-Allow-Credentials'] = 'true'
 		response.headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-HTTP-Method-Override, Authorization, Content-Type, Cache-Control, Accept'
 		200
 	end
+
 
 
 	get '/' do
