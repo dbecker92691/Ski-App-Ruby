@@ -41,10 +41,13 @@ class SkiPostContainer extends Component {
 	}
 
 	addSkiPost = async (skiPost, e) => {
+
 		try {
 		e.preventDefault();
 
-		const createdSkiPost = await fetch(`${process.env.REACT_APP_BACKEND_ADDRESS}/resort-posts`, {
+		console.log(skiPost, "<----- ski post")
+
+		const createdSkiPost = await fetch(`${process.env.REACT_APP_BACKEND_ADDRESS}/resort-posts/`, {
 			method: "POST",
 			credentials: "include",
 			body: JSON.stringify(skiPost),
@@ -53,12 +56,14 @@ class SkiPostContainer extends Component {
 			}
 		});
 
+		console.log(createdSkiPost, "<----- created ski post")
+
 		const parsedSkiPostResponse = createdSkiPost.json();
 		console.log(parsedSkiPostResponse, "<---- this is our create response")
 
 		this.setState({
 			skiPosts: 
-			[...this.state.skiPosts, parsedSkiPostResponse]
+			[...this.state.skiPosts, parsedSkiPostResponse.skiPost]
 		});
 
 		} catch(err) {
@@ -109,7 +114,7 @@ class SkiPostContainer extends Component {
 
 		try {
 
-			const editPostResponse = await fetch(`${process.env.REACT_APP_BACKEND_ADDRESS}/resort-posts/${this.state.movieToEdit.id}`, {
+			const editPostResponse = await fetch(`${process.env.REACT_APP_BACKEND_ADDRESS}/resort-posts/${this.state.skiPostToEdit.id}`, {
 				method: 'PUT',
 				credentials: 'include',
 				body: JSON.stringify({
@@ -122,12 +127,13 @@ class SkiPostContainer extends Component {
 			});
 
 			const pasredEditResponse = editPostResponse.json();
-
+			
 			if(pasredEditResponse.status === 200) {
 				this.setState({
 					showEditModal: false,
 					skiPostToEdit: this.state.skiPostToEdit
 				});
+			console.log(this.state.showEditModal, "<--- show edit modal?")	
 				this.getSkiPosts();
 			}
 		} catch(err) {
@@ -177,7 +183,7 @@ class SkiPostContainer extends Component {
 					        <Grid.Column>
 					            <SkiPostList skiPosts={this.state.skiPosts} deleteSkiPost={this.deleteSkiPost} openAndEdit={this.openAndEdit}/>
 				            </Grid.Column>
-				          <EditSkiPost open={this.state.showEditModal} movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
+				          <EditSkiPost open={this.state.showEditModal} skiPostToEdit={this.state.skiPostToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
 				        </Grid.Row>
 			        </Grid>
 				</div>
